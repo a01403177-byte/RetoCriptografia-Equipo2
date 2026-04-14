@@ -1,7 +1,8 @@
+##Estas clases se utilizan para validar la informacion que entra y sale de la API 
+
 from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, EmailStr
-
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -9,7 +10,6 @@ class UserCreate(BaseModel):
     user_type: str
     role_id: int
     end_date: datetime | None = None
-
 
 class UserUpdate(BaseModel):
     full_name: str | None = None
@@ -24,6 +24,7 @@ class RoleChange(BaseModel):
 class StatusChange(BaseModel):
     reason: str | None = None
 
+##Las clases out representan la informacion que regresa el API de cambios o registros 
 
 class RoleOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -31,6 +32,7 @@ class RoleOut(BaseModel):
     id: int
     code: str
     name: str
+
 
 
 class UserOut(BaseModel):
@@ -52,13 +54,13 @@ class PermissionOut(BaseModel):
     resource: str
     action: str
 
-
+##Informacion del usuario 
 class MeOut(BaseModel):
     user: UserOut
     role: RoleOut
     permissions: list[PermissionOut]
 
-
+##Muestra el historial de cambios dentro el sistema 
 class AuditLogOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
