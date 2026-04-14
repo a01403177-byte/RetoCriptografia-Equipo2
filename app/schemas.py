@@ -1,28 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr
-
-
-class UserCreate(BaseModel):
-    email: EmailStr
-    full_name: str
-    user_type: str
-    role_id: int
-    end_date: datetime | None = None
-
-
-class UserUpdate(BaseModel):
-    full_name: str | None = None
-    user_type: str | None = None
-    end_date: datetime | None = None
-
-
-class RoleChange(BaseModel):
-    role_id: int
-
-
-class StatusChange(BaseModel):
-    reason: str | None = None
+from pydantic import BaseModel, ConfigDict
 
 
 class RoleOut(BaseModel):
@@ -37,10 +15,8 @@ class UserOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
-    auth_sub: str | None
-    email: EmailStr
+    email: str
     full_name: str
-    user_type: str
     role_id: int
     status: str
     end_date: datetime | None

@@ -1,42 +1,54 @@
 # Uso y Funcionamiento
 
-Esta version es intencionalmente minima.
+Esta version es una demo local muy simple. La meta es mostrar que el control de identidades funciona, no simular un IAM completo.
 
-## Idea central
+## Que se simplifico
 
-- El proveedor externo autentica.
-- La tabla `users` decide si la persona puede operar.
-- Cada usuario tiene un solo rol.
-- Los permisos se resuelven desde ese rol.
+- No usa autenticacion externa.
+- No usa JWT.
+- No depende de MySQL para la demo.
+- No necesita migraciones manuales.
 
-## Flujo
+## Que se mantiene
 
-1. El frontend obtiene un JWT del proveedor externo.
-2. Lo envia al backend en `Authorization: Bearer <token>`.
-3. El backend valida el token.
-4. Busca usuario local por `auth_sub`.
-5. Si no existe, intenta primer binding por `email`.
-6. Si el usuario estaba `pending`, lo activa.
-7. Si el estado no es `active`, bloquea acceso.
-8. Carga permisos del rol y permite o niega la accion.
+- Identidad local.
+- Un rol por usuario.
+- Permisos por rol.
+- Estados `pending`, `active`, `revoked`, `expired`.
+- Auditoria de acciones.
+
+## Como arranca
+
+1. FastAPI levanta la app.
+2. SQLAlchemy crea las tablas automaticamente.
+3. Se insertan roles, permisos y usuarios demo si la base esta vacia.
+4. El dashboard se sirve desde `GET /`.
+
+## Flujo de la interfaz
+
+1. Seleccionas con que usuario actuar.
+2. La app calcula sus permisos.
+3. Si es administrador, puede crear usuarios, activar, revocar o cambiar rol.
+4. Cada accion deja un evento en la bitacora.
+
+## Usuarios demo iniciales
+
+- `Admin Demo`
+- `Ana Humanitaria`
+- `Luis Externo`
 
 ## Archivos clave
 
-- [app/main.py](/Users/javier/Documents/New%20project/app/main.py): endpoints y startup.
-- [app/deps.py](/Users/javier/Documents/New%20project/app/deps.py): autenticacion y permisos.
-- [app/services.py](/Users/javier/Documents/New%20project/app/services.py): logica de identidad, autorizacion y auditoria.
-- [app/models.py](/Users/javier/Documents/New%20project/app/models.py): modelos SQLAlchemy.
-- [sql/schema.sql](/Users/javier/Documents/New%20project/sql/schema.sql): esquema inicial.
+- [app/main.py](/Users/javier/Documents/New%20project/app/main.py): interfaz y rutas.
+- [app/services.py](/Users/javier/Documents/New%20project/app/services.py): seed, permisos, usuarios y auditoria.
+- [app/models.py](/Users/javier/Documents/New%20project/app/models.py): tablas.
+- [app/db.py](/Users/javier/Documents/New%20project/app/db.py): base local.
 
 ## Uso rapido
 
 ```bash
+pip install -e .
 uvicorn app.main:app --reload
 ```
 
-Luego consulta:
-
-- `GET /health`
-- `GET /api/me`
-
-Para las rutas protegidas necesitas un JWT valido y un preregistro local.
+Luego abre `http://127.0.0.1:8000`.

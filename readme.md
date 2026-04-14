@@ -1,14 +1,32 @@
-Repositorio para el desarrollo del reto de seguridad y criptografía aplicado a Casa Monarca.
-Este proyecto tiene como objetivo diseñar una solución para la gestión, protección y verificación de documentos y datos personales, utilizando conceptos de criptografía moderna como firma digital, hash, cifrado y autenticación multifactor. Además, el repositorio centraliza el trabajo colaborativo del equipo, el control de versiones y la documentación técnica del proyecto.
+# Gestor de Identidades Demo
 
-# Integrantes
+Version minima para demostrar funcionamiento con interfaz web.
 
-  Ana Lidia Hernández Díaz A00838643 
+## Que hace
 
-  Ana Paula García ValverdeA01174572 
+- Crea usuarios demo.
+- Cambia roles.
+- Activa o revoca cuentas.
+- Calcula permisos efectivos por rol.
+- Registra auditoria basica.
 
-  María Fernanda Montoya López A01743214 
+## Como correrlo
 
-  Javier Rojas Orrante A01352213 
-  
-  Xavier Lago Hicks A01403177
+1. Copia [.env.example](/Users/javier/Documents/New%20project/.env.example) a `.env` si quieres cambiar puerto o ruta de base.
+2. Instala dependencias con `pip install -e .`.
+3. Ejecuta `uvicorn app.main:app --reload`.
+4. Abre [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+La app crea automaticamente una base SQLite local y carga datos demo la primera vez.
+
+## Rutas utiles
+
+- `GET /`
+- `GET /health`
+- `GET /api/me?as_user=1`
+- `GET /api/users?as_user=1`
+- `GET /api/audit-logs?as_user=1`
+
+## Documentacion
+
+- [docs/USO_Y_FUNCIONAMIENTO.md](/Users/javier/Documents/New%20project/docs/USO_Y_FUNCIONAMIENTO.md)

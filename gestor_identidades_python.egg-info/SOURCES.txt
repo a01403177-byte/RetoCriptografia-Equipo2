@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+app/__init__.py
+app/config.py
+app/db.py
+app/deps.py
+app/main.py
+app/models.py
+app/schemas.py
+app/services.py
+gestor_identidades_python.egg-info/PKG-INFO
+gestor_identidades_python.egg-info/SOURCES.txt
+gestor_identidades_python.egg-info/dependency_links.txt
+gestor_identidades_python.egg-info/requires.txt
+gestor_identidades_python.egg-info/top_level.txt
