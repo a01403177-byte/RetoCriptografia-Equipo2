@@ -1,3 +1,5 @@
+##Aqui se definen los modelos de la base de datos utilizando sqlalchemy
+
 from datetime import datetime
 
 from sqlalchemy import JSON, DateTime, Enum, ForeignKey, String, UniqueConstraint
@@ -5,6 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
 
+##Aqui se definen las clases, que son tablas en las que se almacenara informacion del sistema
 
 class Role(Base):
     __tablename__ = "roles"
