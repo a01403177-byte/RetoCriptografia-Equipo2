@@ -46,6 +46,7 @@ class Permission(Base):
     resource: Mapped[str] = mapped_column(String(100), nullable=False)
     action: Mapped[str] = mapped_column(String(50), nullable=False)
 
+##Aqui se asignan que permisos tiene cada rol
 
 class RolePermission(Base):
     __tablename__ = "role_permissions"
@@ -55,6 +56,7 @@ class RolePermission(Base):
     role_id: Mapped[int] = mapped_column(ForeignKey("roles.id"), nullable=False)
     permission_id: Mapped[int] = mapped_column(ForeignKey("permissions.id"), nullable=False)
 
+##Aqui se guarda el historial de cambios realizados en la base de datos 
 
 class AuditLog(Base):
     __tablename__ = "audit_logs"
