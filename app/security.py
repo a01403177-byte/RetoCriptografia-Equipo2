@@ -1,3 +1,4 @@
+##Aqui es donde se valida y dcodifica el token JWT
 from functools import lru_cache
 
 import httpx
@@ -5,14 +6,14 @@ from jose import JWTError, jwt
 
 from app.config import settings
 
-
+##Se obitnene las llaves publicas 
 @lru_cache(maxsize=1)
 def get_jwks() -> dict:
     response = httpx.get(settings.auth_jwks_url, timeout=5.0)
     response.raise_for_status()
     return response.json()
 
-
+##Aqui se verifica que el toekn sea valido 
 def decode_token(token: str) -> dict:
     jwks = get_jwks()
     header = jwt.get_unverified_header(token)
